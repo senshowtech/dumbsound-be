@@ -1,4 +1,4 @@
-const { user, music, artist } = require("../../models");
+const { music, artist } = require("../../models");
 
 exports.getAllMusic = async (req, res) => {
   try {
@@ -12,6 +12,31 @@ exports.getAllMusic = async (req, res) => {
           },
         },
       ],
+    });
+    return res.status(201).json({
+      status: "succes",
+      data: {
+        musics: musics,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: "failed",
+    });
+  }
+};
+
+exports.getDetailMusic = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const musics = await music.findOne({
+      where: {
+        id,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "idUser"],
+      },
     });
     return res.status(201).json({
       status: "succes",
@@ -43,6 +68,50 @@ exports.addMusic = async (req, res) => {
       data: {
         musics: musics,
       },
+    });
+  }
+};
+
+exports.editMusic = async (req, res) => {
+  try {
+    const id = req.params.id;
+    let musics = await music.update(req.body, {
+      where: {
+        id,
+      },
+    });
+    return res.status(201).json({
+      status: "succes",
+      data: {
+        musics: musics,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: "failed",
+    });
+  }
+};
+
+exports.deleteMusic = async (req, res) => {
+  try {
+    const id = req.params.id;
+    let musics = await music.destroy({
+      where: {
+        id,
+      },
+    });
+    return res.status(201).json({
+      status: "succes",
+      data: {
+        musics: musics,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: "failed",
     });
   }
 };
