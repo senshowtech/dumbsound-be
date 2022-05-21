@@ -12,8 +12,9 @@ exports.uploadFile = (imageFile) => {
 
   const fileFilter = (req, file, cb) => {
     if (file.fieldname === imageFile) {
-      console.log(file.originalname);
-      if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
+      if (
+        !file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF|mp3)$/)
+      ) {
         req.fileValidationError = {
           message: "file hanya boleh gambar",
         };
