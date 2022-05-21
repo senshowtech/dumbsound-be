@@ -12,6 +12,7 @@ exports.uploadFile = (imageFile) => {
 
   const fileFilter = (req, file, cb) => {
     if (file.fieldname === imageFile) {
+      console.log(file.originalname);
       if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
         req.fileValidationError = {
           message: "file hanya boleh gambar",
@@ -31,14 +32,17 @@ exports.uploadFile = (imageFile) => {
     limits: {
       fileSize: maxSize,
     },
-  }).single(imageFile);
+  }).fields([
+    { name: "thumbnail", maxCount: 1 },
+    { name: "song", maxCount: 1 },
+  ]);
 
   return (req, res, next) => {
     upload(req, res, function (err) {
       if (req.fileValidationError)
         return res.status(400).send(req.fileValidationError);
 
-      if (!req.file && !err)
+      if (!req.files && !err)
         return res.status(400).send({
           message: "Silahkan Pilih Gambar",
         });

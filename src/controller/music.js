@@ -54,12 +54,15 @@ exports.getDetailMusic = async (req, res) => {
 
 exports.addMusic = async (req, res) => {
   try {
-    let musics = await music.create(req.body);
+    // let musics = await music.create(req.body);
+    // return res.status(201).json({
+    //   status: "succes",
+    //   data: {
+    //     musics: musics,
+    //   },
+    // });
     return res.status(201).json({
       status: "succes",
-      data: {
-        musics: musics,
-      },
     });
   } catch (error) {
     console.log(error);
