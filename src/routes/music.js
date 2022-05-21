@@ -7,10 +7,12 @@ const {
   editMusic,
   deleteMusic,
 } = require("../controller/music");
+const { auth } = require("../middlewares/auth");
+const { uploadFile } = require("../middlewares/uploadFile");
 
 router.get("/musics/", getAllMusic);
 router.get("/music/:id", getDetailMusic);
-router.post("/music/add", addMusic);
+router.post("/music/add", uploadFile("images"), addMusic);
 router.patch("/music/:id", editMusic);
 router.delete("/music/:id", deleteMusic);
 
