@@ -1,6 +1,6 @@
 const multer = require("multer");
 
-exports.uploadFile = (imageFile) => {
+exports.uploadFile = () => {
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, "uploads");
@@ -11,15 +11,13 @@ exports.uploadFile = (imageFile) => {
   });
 
   const fileFilter = (req, file, cb) => {
-    if (file.fieldname === imageFile) {
-      if (
-        !file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF|mp3)$/)
-      ) {
-        req.fileValidationError = {
-          message: "file hanya boleh gambar",
-        };
-        return cb(new Error("file hanya boleh gambar"), false);
-      }
+    if (
+      !file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF|mp3)$/)
+    ) {
+      req.fileValidationError = {
+        message: "file hanya boleh gambar atau music",
+      };
+      return cb(new Error("file hanya boleh gambar atau music"), false);
     }
     cb(null, true);
   };
