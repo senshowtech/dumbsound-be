@@ -115,11 +115,36 @@ exports.getAllTransactionAdmin = async (req, res) => {
 
 exports.AddTransaction = async (req, res) => {
   try {
+    let d = new Date();
+    let months = "";
+
+    if (req.body.price === "50000") {
+      months = "1";
+    } else if (req.body.price === "250000") {
+      months = "6";
+    } else if (req.body.price === "500000") {
+      months = "12";
+    }
+
+    let mySqlTimestamp = new Date(
+      d.getFullYear(),
+      d.getMonth() + parseInt(months),
+      d.getDate(),
+      d.getHours(),
+      d.getMinutes(),
+      d.getSeconds(),
+      d.getMilliseconds()
+    )
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+
     const transactionCreate = await transaction.create({
       ...req.body,
       id: parseInt(req.body.idProduct + Math.random().toString().slice(3, 8)),
       idBuyer: req.user.id,
       status: "pending",
+      endDate: mySqlTimestamp,
     });
 
     const buyerData = await user.findOne({
@@ -152,7 +177,6 @@ exports.AddTransaction = async (req, res) => {
     };
 
     const payment = await snap.createTransaction(parameter);
-    console.log(payment);
 
     return res.status(201).json({
       status: "succes",
@@ -200,8 +224,6 @@ exports.notification = async (req, res) => {
     const orderId = statusResponse.order_id;
     const transactionStatus = statusResponse.transaction_status;
     const fraudStatus = statusResponse.fraud_status;
-
-    console.log(statusResponse);
 
     if (transactionStatus == "capture") {
       if (fraudStatus == "challenge") {
