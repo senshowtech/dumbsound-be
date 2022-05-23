@@ -6,6 +6,7 @@ const cors = require("cors");
 const routesMusic = require("./src/routes/music");
 const routesArtist = require("./src/routes/artist");
 const routesUser = require("./src/routes/user");
+const routesTransaction = require("./src/routes/transaction");
 
 const app = express();
 
@@ -16,6 +17,6 @@ app.use("/uploads", express.static("uploads"));
 
 app.use(cors());
 
-app.use("/api/v1/", routesMusic, routesArtist, routesUser);
+app.use("/api/v1/", routesMusic, routesArtist, routesUser, routesTransaction);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

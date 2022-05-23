@@ -8,15 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      idMusic: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "music",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-      },
       idBuyer: {
         type: Sequelize.INTEGER,
         references: {
