@@ -56,8 +56,8 @@ exports.addMusic = async (req, res) => {
   try {
     let musics = await music.create({
       ...req.body,
-      thumbnail: req.files.thumbnail[0].filename,
-      attache: req.files.song[0].filename,
+      thumbnail: process.env.url + req.files.thumbnail[0].filename,
+      attache: process.env.url + req.files.song[0].filename,
       userId: req.user.id,
     });
     return res.status(201).json({

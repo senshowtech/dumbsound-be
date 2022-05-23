@@ -12,6 +12,8 @@ const app = express();
 const port = process.env.Port;
 
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
+
 app.use(cors());
 
 app.use("/api/v1/", routesMusic, routesArtist, routesUser);
