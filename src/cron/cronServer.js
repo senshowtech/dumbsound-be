@@ -1,6 +1,5 @@
-const { date } = require("joi");
 const cron = require("node-cron");
-const { transaction, music, user } = require("../../models");
+const { transaction } = require("../../models");
 
 cron.schedule("1 * * * * *", () => {
   getAllTransactionAdmin();
