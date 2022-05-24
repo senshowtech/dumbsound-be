@@ -112,7 +112,7 @@ exports.AddTransaction = async (req, res) => {
 
     const transactionCreate = await transaction.create({
       ...req.body,
-      id: parseInt(req.body.idProduct + Math.random().toString().slice(3, 8)),
+      id: parseInt(Math.random().toString().slice(3, 8)),
       idBuyer: req.user.id,
       status: "pending",
       endDate: mySqlTimestamp,
