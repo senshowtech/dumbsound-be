@@ -4,25 +4,11 @@ const midtransClient = require("midtrans-client");
 exports.getAllTransactionUser = async (req, res) => {
   try {
     const id = req.user.id;
-    const dataTransaction = await transaction.findAll({
+    const dataTransaction = await transaction.findOne({
       where: {
         idBuyer: id,
       },
       include: [
-        {
-          model: music,
-          as: "music",
-          attributes: {
-            exclude: [
-              "createdAt",
-              "updatedAt",
-              "idUser",
-              "qty",
-              "price",
-              "kurir",
-            ],
-          },
-        },
         {
           model: user,
           as: "buyer",
@@ -43,26 +29,10 @@ exports.getAllTransactionUser = async (req, res) => {
       },
     });
 
-    let transactions = [];
-    if (dataTransaction !== null) {
-      dataTransaction.forEach((value) => {
-        let data = {
-          id: value.id,
-          product: value.product,
-          buyer: value.buyer,
-          seller: value.seller,
-          price: value.price,
-          status: value.status,
-          date: value.createdAt,
-        };
-        transactions.push(data);
-      });
-    }
-
     return res.status(201).json({
       status: "succes",
       data: {
-        transactions,
+        dataTransaction,
       },
     });
   } catch (error) {

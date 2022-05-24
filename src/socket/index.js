@@ -1,4 +1,4 @@
-const { user, profile, chat } = require("../../models");
+const { user, chat } = require("../../models");
 const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 
@@ -24,13 +24,6 @@ const socketIo = (io) => {
             status: "admin",
           },
           include: [
-            {
-              model: profile,
-              as: "profiles",
-              attributes: {
-                exclude: ["createdAt", "updatedAt"],
-              },
-            },
             {
               model: chat,
               as: "recipientMessage",
@@ -60,13 +53,6 @@ const socketIo = (io) => {
       try {
         let custommerContacts = await user.findAll({
           include: [
-            {
-              model: profile,
-              as: "profiles",
-              attributes: {
-                exclude: ["createdAt", "updatedAt"],
-              },
-            },
             {
               model: chat,
               as: "recipientMessage",
