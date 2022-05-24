@@ -8,6 +8,7 @@ exports.getAllTransactionUser = async (req, res) => {
       where: {
         idBuyer: id,
       },
+      order: [["createdAt", "DESC"]],
       include: [
         {
           model: user,
