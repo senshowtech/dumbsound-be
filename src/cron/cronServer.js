@@ -6,7 +6,7 @@ cron.schedule("1 * * * * *", () => {
   getAllTransactionAdmin();
 });
 
-const getAllTransactionAdmin = async (req, res) => {
+const getAllTransactionAdmin = async () => {
   try {
     const dataTransaction = await transaction.findAll({
       attributes: {
