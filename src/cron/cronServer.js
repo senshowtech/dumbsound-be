@@ -1,6 +1,7 @@
 const cron = require("node-cron");
 const { transaction } = require("../../models");
-
+// 30 5 13 * * *
+// cek per hari setiap jam 1
 cron.schedule("1 * * * * *", () => {
   getAllTransactionAdmin();
 });
