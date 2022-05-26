@@ -16,7 +16,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["https://diafragma.com", "https://www.diafragma.com"],
+    origin: ["https://dumbsound.febrisena", "https://www.dumbsound.febrisena"],
   },
 });
 
