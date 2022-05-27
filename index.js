@@ -16,7 +16,10 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["https://dumbsound.febrisena", "https://www.dumbsound.febrisena"],
+    origin: [
+      "https://dumbsound.febrisena.xyz",
+      "https://www.dumbsound.febrisena.xyz",
+    ],
   },
 });
 
