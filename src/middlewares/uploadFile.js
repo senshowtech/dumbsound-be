@@ -22,7 +22,7 @@ exports.uploadFile = () => {
     cb(null, true);
   };
 
-  const sizeInMB = 10;
+  const sizeInMB = 100;
   const maxSize = sizeInMB * 1000 * 1000;
 
   const upload = multer({
