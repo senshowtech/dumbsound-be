@@ -1,4 +1,51 @@
 const { music, artist } = require("../../models");
+const { Op } = require("sequelize");
+
+exports.searchMusic = async (req, res) => {
+  try {
+    let title = req.params.title;
+    let musics = await music.findAll({
+      where: { title: { [Op.like]: `%${title}%` } },
+    });
+    return res.status(201).json({
+      status: "succes",
+      musics: musics,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getAllMusicPagination = async (req, res) => {
+  try {
+    let musics = await music.findAndCountAll({
+      offset: (req.params.page - 1) * 8,
+      limit: 8,
+      include: [
+        {
+          model: artist,
+          as: "artists",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "idUser"],
+      },
+    });
+    return res.status(201).json({
+      status: "succes",
+      musics: musics,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: "error",
+      error: "server error",
+    });
+  }
+};
 
 exports.getAllMusic = async (req, res) => {
   try {
