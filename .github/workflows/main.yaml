@@ -1,0 +1,19 @@
+name: remote ssh command
+on: [push]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.IP }}
+          username: dumbmerch
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: |
+            cd /home/dumbmerch/dumbsound-be
+            # git remote set-url origin https://senahargianto98:${{ secrets.TOKEN }}@github.com/senahargianto98/wabotbe.git
+            # git pull origin main
+            git status
