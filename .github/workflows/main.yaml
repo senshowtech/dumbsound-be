@@ -14,6 +14,6 @@ jobs:
           port: 22
           script: |
             cd /home/dumbmerch/dumbsound-be
-            # git remote set-url origin https://senahargianto98:${{ secrets.TOKEN }}@github.com/senahargianto98/wabotbe.git
-            # git pull origin main
+            git remote set-url origin https://senshowtech:${{ secrets.TOKEN }}@github.com/senshowtech/dumbsound-be
+            git pull origin prod
             git status
