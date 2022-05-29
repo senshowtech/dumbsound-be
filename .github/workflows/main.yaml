@@ -10,7 +10,7 @@ jobs:
         with:
           host: ${{ secrets.IP }}
           username: dumbmerch
-          password: febrisena123
+          password: ${{ secrets.PASSWORD }}
           port: 22
           script: |
             cd /home/dumbmerch/dumbsound-be
