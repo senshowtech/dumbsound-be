@@ -18,3 +18,4 @@ jobs:
             git pull origin prod
             git status
             pm2 status
+            pm2 restart dumbsound
