@@ -14,8 +14,8 @@ const { uploadFile } = require("../middlewares/uploadFile");
 
 router.get("/musics/", getAllMusic);
 router.get("/musics/pagination/:page", getAllMusicPagination);
-router.get("/musics/search/:title", searchMusic);
 router.get("/music/:id", auth, getDetailMusic);
+router.post("/musics/search", searchMusic);
 router.post("/music/add", uploadFile(), auth, addMusic);
 router.patch("/music/:id", auth, editMusic);
 router.delete("/music/:id", auth, deleteMusic);

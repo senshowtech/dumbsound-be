@@ -3,13 +3,28 @@ const { Op } = require("sequelize");
 
 exports.searchMusic = async (req, res) => {
   try {
-    let title = req.params.title;
-    let musics = await music.findAll({
-      where: { title: { [Op.like]: `%${title}%` } },
+    let dataTitle = await music.findAll({
+      include: [
+        {
+          model: artist,
+          as: "artists",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "idUser"],
+      },
+    });
+    let search = dataTitle.filter((value) => {
+      return value.title
+        .toLocaleLowerCase()
+        .includes(req.body.title.toLocaleLowerCase());
     });
     return res.status(201).json({
       status: "succes",
-      musics: musics,
+      musics: search,
     });
   } catch (error) {
     console.log(error);
