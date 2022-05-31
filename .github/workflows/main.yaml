@@ -17,3 +17,4 @@ jobs:
             git remote set-url origin https://senshowtech:${{ secrets.TOKEN }}@github.com/senshowtech/dumbsound-be
             git pull origin prod
             git status
+            pm2 status
